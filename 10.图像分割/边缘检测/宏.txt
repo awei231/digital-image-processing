@@ -1,0 +1,71 @@
+Function HelloWorld(dValue As Double, dxValue As Double, dyValue As Double, dLeft As Double, dRight As Double, dTop As Double, dBottom As Double, dTopLeft As Double, dTopRight As Double, dBottomLeft As Double, dBottomRight As Double) As Double
+    Dim gradX As Double, gradY As Double, gradTemp As Double
+    Dim grad1 As Double, grad2 As Double, grad3 As Double, grad4 As Double
+    Dim gradTemp1 As Double, gradTemp2 As Double
+    Dim weight As Double
+    
+    ' 如果 d 为 0，则直接返回 0
+    If dValue = 0 Then
+        HelloWorld = 0
+    Exit Function
+    End If
+    
+    gradX = dxValue
+    gradY = dyValue
+    gradTemp = dValue
+    
+    If gradX = 0 And gradY = 0 Then
+        HelloWorld = gradTemp
+        Exit Function
+    End If
+    
+    If Abs(gradY) > Abs(gradX) Then
+        
+        If Abs(gradX) <> 0 Then
+            weight = Abs(gradX) / Abs(gradY)
+        Else
+            weight = 0
+        End If
+        grad2 = dTop
+        grad4 = dBottom
+        
+        If gradX * gradY > 0 Then
+            grad1 = dTopLeft
+            grad3 = dBottomRight
+        Else
+            HelloWorld = 222
+            grad1 = dTopRight
+            grad3 = dBottomLeft
+        End If
+    Else
+    
+       If Abs(gradY) <> 0 Then
+            weight = Abs(gradY) / Abs(gradX)
+        Else
+            weight = 0
+        End If
+        
+        grad2 = dLeft
+        grad4 = dRight
+        
+        If gradX * gradY > 0 Then
+            HelloWorld = 333
+            grad1 = dBottomLeft
+            grad3 = dTopRight
+        Else
+            HelloWorld = 444
+            grad1 = dTopLeft
+            grad3 = dBottomRight
+        End If
+    End If
+    
+    gradTemp1 = weight * grad1 + (1 - weight) * grad2
+    gradTemp2 = weight * grad3 + (1 - weight) * grad4
+    If gradTemp >= gradTemp1 And gradTemp >= gradTemp2 Then
+        HelloWorld = gradTemp
+    Else
+        HelloWorld = 0
+    End If
+    
+    
+End Function
