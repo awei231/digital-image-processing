@@ -1,0 +1,35 @@
+Function Thresholding(NMS As Double, dLeft As Double, dRight As Double, dTop As Double, dBottom As Double, dTopLeft As Double, dTopRight As Double, dBottomLeft As Double, dBottomRight As Double) As Double
+Dim TL As Double
+    Dim TH As Double
+    
+    ' 定义 TL 和 TH 的阈值
+    TL = 0.2 * NMS
+    TH = 0.3 * NMS
+    
+    If NMS < TL Then
+        Thresholding = 0
+    ElseIf NMS > TH Then
+        Thresholding = 1
+    Else
+        Dim arr As Variant
+        arr = Array(dLeft, dRight, dTop, dBottom, dTopLeft, dTopRight, dBottomLeft, dBottomRight)
+        
+        Dim i As Integer
+        Dim flag As Boolean
+        flag = False
+        
+        For i = LBound(arr) To UBound(arr)
+            If arr(i) < TH Then
+                flag = True
+                Exit For
+            End If
+        Next i
+        
+        If flag Then
+            Thresholding = 1
+        Else
+            Thresholding = 0
+        End If
+    End If
+
+End Function
